@@ -51,6 +51,8 @@ func (f *Frontend) handleOfficialExtensions(ctx context.Context, w http.Response
 		return err
 	}
 
+	w.Header().Add("Content-Type", "application/json")
+
 	return json.NewEncoder(w).Encode(
 		xslices.Map(extensions, func(e artifacts.ExtensionRef) client.ExtensionInfo {
 			return client.ExtensionInfo{
@@ -84,6 +86,8 @@ func (f *Frontend) handleOfficialOverlays(ctx context.Context, w http.ResponseWr
 	if err != nil {
 		return err
 	}
+
+	w.Header().Add("Content-Type", "application/json")
 
 	return json.NewEncoder(w).Encode(
 		xslices.Map(overlays, func(e artifacts.OverlayRef) client.OverlayInfo {
